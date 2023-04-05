@@ -9,11 +9,18 @@ def hi(request: Request) -> Response:
     '''hi view'''
     pass
 
-
-@api_view(['GET'])
+@api_view(['GET', "POST"])
 def addition(request: Request) -> Response:
     '''add two number'''
-    pass
+    if request.method == "GET":
+        query_params = request.query_params
+        x = query_params.get("x", 0)
+        y = query_params.get("y", 0)
+        return Response({"sum": int(x) + int(y)})
+    
+    if request.method == "POST":
+        data = request.data
+        return Response(data)
     
 
 @api_view(['GET'])
